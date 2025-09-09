@@ -1,2 +1,20 @@
-1 - 
-select * from the tablr
+1 - create 
+create table persons(
+	id int not null,
+	p_name varchar(15) not null,
+	birth_date date,
+	phone varchar(15) not null,
+	constraint pk_persons primary key(id)
+	);
+
+select *
+from persons;
+
+2 - alter
+alter table persons
+add email varchar(15);
+
+alter table persons
+drop column phone;
+
+3 - drop table persons
