@@ -1,0 +1,51 @@
+1 - insert
+select * 
+from customers;
+
+insert into customers(id,first_name,country,score)
+values
+	(6,'saaho','UK',null),
+	(7,'og',null,500);
+
+insert into customers
+values(8,'rcb','Germany',600);
+
+insert into customers(id,first_name)
+values
+	(9,'omi'),
+	(10,'dj');
+
+2 - 
+  insert into persons(id,p_name,birth_date,email)
+select
+	id,
+	first_name,
+	null,
+	'unknown'
+from customers;
+
+select *
+from persons;
+
+3 - update
+  update customers
+set score = 0
+where id = 6;
+
+select *
+from customers;
+
+update customers
+set score = 0,
+	country = 'UK'
+where id = 10;
+
+update customers
+set score = 0
+where score is null;
+
+4 - delete
+  delete from customers
+  where id = 5;
+
+truncate table customers;
