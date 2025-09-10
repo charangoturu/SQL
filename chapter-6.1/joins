@@ -1,0 +1,122 @@
+-- JOINS
+-- basics
+-- inner join
+
+select *
+from customers
+inner join orders
+on customers.id = orders.customer_id;
+
+select 
+	id,
+	first_name,
+	order_id,
+	sales
+from customers
+inner join orders
+on customers.id = orders.customer_id;
+
+select 
+	customers.id,
+	customers.first_name,
+	orders.order_id,
+	orders.sales
+from customers
+inner join orders
+on customers.id = orders.customer_id;
+
+select 
+	c.id,
+	c.first_name,
+	o.order_id,
+	o.sales
+from customers as c
+inner join orders as o
+on c.id = o.customer_id;
+
+-- left join
+
+select
+	c.id,
+	c.first_name,
+	o.order_id,
+	o.sales
+from customers as c
+left join orders as o
+on c.id = o.customer_id;
+
+-- right join 
+
+select 
+	c.id,
+	c.first_name,
+	o.order_id,
+	o.sales
+from customers as c
+right join orders as o
+on c.id = o.customer_id;
+
+select
+	c.id,
+	c.first_name,
+	o.order_id,
+	o.sales
+from orders as o
+left join customers as c
+on o.customer_id = c.id;
+
+-- full join
+
+select 
+	c.id,
+	c.first_name,
+	o.order_id,
+	o.sales
+from customers as c
+full join orders as o
+on c.id = o.customer_id;
+
+-- advanced
+-- left anti join
+
+select *
+from customers as c
+left join orders as o
+on c.id = o.customer_id;
+
+select *
+from customers as c
+left join orders as o
+on c.id = o.customer_id
+where o.customer_id is null;
+
+-- right anti join
+
+select *
+from customers as c
+right join orders as o
+on c.id = o.customer_id
+where o.customer_id is null;
+
+-- full anti join
+
+select *
+from customers as c
+full join orders as o
+on c.id = o.customer_id
+where 
+	c.id is null or o.customer_id is null;
+
+-- chalenges
+
+select *
+from customers as c
+inner join orders as o
+on c.id = o.customer_id
+where o.customer_id is not null;
+
+-- cross join
+
+select *
+from customers
+cross join orders;
