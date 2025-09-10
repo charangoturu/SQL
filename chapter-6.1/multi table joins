@@ -1,1 +1,18 @@
+-- multi table join
 
+select 
+	o.OrderId,
+	o.Sales,
+	c.FirstName as CusFM,
+	c.LastName as CusLN,
+	p.Product as ProductName,
+	p.Price,
+	e.FirstName as EmpFN,
+	e.LastName as EmpLN
+from Sales.Orders as o
+left join Sales.Customers as c
+on o.CustomerID = c.CustomerID
+left join Sales.Products as p
+on o.ProductID = p.ProductID
+left join Sales.Employees as e
+on o.SalesPersonID = e.EmployeeID;
