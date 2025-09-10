@@ -1,0 +1,84 @@
+-- set operators
+-- union
+
+select 
+	FirstName,
+	LastName
+from Sales.Customers
+union
+select 
+	FirstName,
+	LastName
+from sales.Employees;
+
+-- union all
+
+select 
+	FirstName,
+	LastName
+from Sales.Customers
+union all
+select 
+	FirstName,
+	LastName
+from sales.Employees;
+
+-- except
+
+select 
+	FirstName,
+	LastName
+from Sales.Customers
+except
+select 
+	FirstName,
+	LastName
+from sales.Employees;
+
+-- intersect
+
+select 
+	FirstName,
+	LastName
+from Sales.Customers
+intersect
+select 
+	FirstName,
+	LastName
+from sales.Employees;
+
+-- tasks
+
+select
+        'orders' as SourceTable,
+	   [OrderID]
+	  ,[ProductID]
+      ,[CustomerID]
+      ,[SalesPersonID]
+      ,[OrderDate]
+      ,[ShipDate]
+      ,[OrderStatus]
+      ,[ShipAddress]
+      ,[BillAddress]
+      ,[Quantity]
+      ,[Sales]
+      ,[CreationTime]
+from Sales.Orders
+union
+select 
+        'OrdersArchieve' as SourceTable,
+	   [OrderID]
+	  ,[ProductID]
+      ,[CustomerID]
+      ,[SalesPersonID]
+      ,[OrderDate]
+      ,[ShipDate]
+      ,[OrderStatus]
+      ,[ShipAddress]
+      ,[BillAddress]
+      ,[Quantity]
+      ,[Sales]
+      ,[CreationTime]
+from Sales.OrdersArchive
+order by OrderID;
+
