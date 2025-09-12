@@ -1,1 +1,70 @@
+-- string functions
+-- manipulationns
+-- concat
 
+select 
+	first_name,
+	country,
+	concat(first_name, ' ' , country) as name_country
+from customers;
+
+-- lower 
+select 
+	first_name,
+	lower(first_name) as small
+from customers;
+
+-- upper
+select 
+	first_name,
+	upper(first_name) as upper
+from customers;
+
+-- trim 
+select 
+	first_name
+from customers
+where first_name != trim(first_name);
+
+select 
+	first_name,
+	len(first_name) as len_beforeTrim,
+	len(trim(first_name)) as len_afterTrim,
+    len(first_name) - len(trim(first_name)) as flag 
+from customers
+where first_name != trim(first_name);
+
+-- replace
+select 
+'123-456-789' as phone,       --static value i created for practise
+replace('123-456-789' , '-' , '/') as clean_phone;
+
+select 
+'report.txt' as old_name,
+replace('report.txt','.txt','.csv') as new_name;
+
+-- calculation
+-- length
+select 
+	first_name,
+	len(first_name) as length
+from customers;
+
+-- string extraction
+-- left, right 
+ select 
+	first_name,
+	left(first_name,2) as first_two,
+	right(first_name,2) as right_two
+from customers;
+
+--substring
+select 
+	first_name,
+	substring(first_name,2,2) as subtring
+from customers;
+
+select
+	first_name,
+	SUBSTRING(first_name,2,LEN(first_name)) as after
+from customers
