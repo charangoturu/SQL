@@ -1,0 +1,22 @@
+-- number functions
+-- round
+select 
+	3.162,
+	round('3.162',2) as round_2;
+
+select 
+	3.162,
+	round('3.162',1) as round_1;
+
+select 
+	3.162,
+	round('3.162',0) as round_0;
+
+select 
+	32.162,
+	round('32.162',0) as round_0;
+
+-- absolute
+select
+	-10,
+	abs(-10) as abs_value;
