@@ -1,0 +1,161 @@
+-- date & time functions
+-- part extraction
+-- day,month,year
+select 
+	orderID,
+	creationTime,
+	day(creationTime) as day,
+	month(creationTime) as month,
+	year(creationTime) as year
+from Sales.Orders;
+
+-- date part
+select 
+	orderId,
+	creationTime,
+	datepart(day, creationTime) as day,
+	datepart(hour, creationTime) as hour,
+	datepart(quarter, creationTime) as quarter,
+	datepart(week, creationTime) as week
+from Sales.Orders;
+
+-- date name
+select 
+	orderID,
+	creationTime,
+	datename(month, creationTime) as monthname,
+	datename(weekday, creationTime) as weekname
+from Sales.Orders;
+
+-- date trunc
+select 
+	orderID,
+	creationTime,
+	datetrunc(year, creationTime) as year_dt,
+	datetrunc(month, creationTime) as month_dt,
+	datetrunc(minute, creationTime) as min_dt
+from Sales.Orders;
+
+select 
+	datetrunc(month, creationTime) as month,
+	count(*) as totalbyMonth
+from Sales.Orders
+group by datetrunc(month,creationTime);
+
+select 
+	OrderID,
+	creationTime,
+	datetrunc(day, creationTime) as starting,
+	cast(datetrunc(day, creationTime) as date) as startingDate,
+	eomonth(creationTime) as endingdate
+from Sales.Orders;
+
+-- data aggreagations
+select 
+	--month(creationTime) as year,
+	datename(month,creationTime) as monthname,
+	count(*) as totalOrders
+from Sales.Orders
+group by datename(month,creationTime);
+
+select 
+	*
+from Sales.Orders
+where month(OrderDate) = 2;
+
+-- formating & testing
+select
+	OrderId,
+	CreationTime,
+	format(creationTime, 'dd') as dd,
+	format(CreationTime, 'ddd') as ddd,
+	format(CreationTime, 'dddd') as dddd,
+	format(CreationTime, 'MM') as mm,
+	format(CreationTime, 'MMM') as mmm,
+	format(CreationTime, 'MMMM') as mmmm
+from Sales.Orders;
+
+select
+	OrderID,
+	CreationTime,
+	'Day ' + format(CreationTime, 'ddd')+
+	' '+format(creationTime,'MMM')+
+	' Q'+datename(quarter,creationTime)+
+	' '+format(creationTime,'yyyy hh:mm:ss tt') as customFormat
+from Sales.Orders;
+
+select 
+	format(OrderDate, 'MMM yy') as date,
+	count(*) as total
+from Sales.Orders
+group by format(OrderDate, 'MMM yy');
+
+select 
+	convert(int, '123') as StringtoInt,
+	convert(DATE, '2025-01-21') as StringtoDate,
+	creationTime,
+	convert(date, creationTime) as date
+from Sales.Orders;
+
+-- cast
+select 
+	cast('132'as int) as stringtoInt,
+	creationTime,
+	cast(creationTime as date) as date
+from Sales.Orders;
+
+-- calculations
+-- dateadd
+
+select 
+	OrderID,
+	OrderDate,
+	dateadd(DAY, -10, OrderDate) as TenDaysBefore,
+	dateadd(month, 3, OrderDate) as ThreeMonthsLater,
+	dateadd(year, 4, OrderDate) as FourYearsLater
+from Sales.Orders;
+
+-- datedif
+select 
+	EmployeeID,
+	BirthDate,
+	datediff(year, birthdate,getdate()) as random,
+	convert(date,getdate()) as Today,
+	datediff(year, birthdate, convert(date,getdate())) as age
+from Sales.Employees;
+
+select
+	month(OrderDate) as month,
+	--datediff(day,OrderDate,ShipDate) as diff,
+	avg(datediff(day,OrderDate,ShipDate)) as avg
+from Sales.Orders
+group by month(OrderDate);
+
+select 
+	OrderId,
+	OrderDate as currentdate,
+	lag(OrderDate) over (order by orderDate) as previousDate,
+	datediff(day, lag(OrderDate) over (order by orderDate), OrderDate) as Difdays
+from Sales.Orders;
+
+-- validation
+-- isdate
+select 
+	isdate('1323') as check1,
+	isdate(2025-02-25) as check2,
+	isdate(22-01-2024) as check3;
+
+select
+	orderdate,
+	isdate(orderdate) as check1,
+	case when isdate(orderdate) = 1 then cast(orderdate as date)
+	else '9999-01-12'
+	end NewOrderDate
+from(
+	select '2024-02-23' as orderdate union
+	select '22-02-2025' union
+	select '2025-01-12' union
+	select '2025-01' 
+	) as t
+where isdate(orderdate)=0;
+
