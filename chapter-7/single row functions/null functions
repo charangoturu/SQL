@@ -1,0 +1,52 @@
+-- null functions
+-- is null,coalesce,is not null
+
+select 
+	CustomerID,
+	score,
+	coalesce(score,0) as score2,
+	avg(score) over() svg,			 -- over() it is an window function
+	avg(coalesce(score,0)) over() savg1
+from Sales.Customers;
+
+select
+	FirstName,
+	LastName,
+	FirstName+' '+coalesce(LastName,'') as FullName,
+	score,
+	coalesce(score,0)+10 as scoreWithBonus
+from Sales.Customers;
+
+select 
+	customerid,
+	score,
+	case when score is null then 1 else 0 end flag
+from Sales.Customers
+order by case when score is null then 1 else 0 end, score;
+
+-- nullif
+select 
+	orderid,
+	sales,
+	quantity,
+	sales/nullif(quantity,0) as oneorderprice
+from sales.orders;
+
+select
+	*
+from sales.customers
+where Score is null;
+
+select 
+	* 
+from sales.customers
+where score is not null;
+
+-- null examples with joins
+select 
+	*
+from sales.customers as c
+left join sales.orders as o
+on c.customerid = o.customerid
+where o.customerid is null;
+
