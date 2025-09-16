@@ -1,0 +1,59 @@
+-- case function
+select 
+	category,
+	sum(sales) as totalSales
+from(
+select 
+	orderid,
+	sales,
+	case 
+		when sales > 50 then 'high'
+		when sales > 20 then 'medium'
+		else 'low'
+	end category
+from Sales.Orders
+)t
+group by category
+order by totalSales desc;
+
+select 
+	Employeeid,
+	firstName,
+	lastName,
+	gender,
+	case
+		when gender = 'F' then 'Female'
+		when gender = 'M' then 'Male'
+		else 'n/a'
+	end fullGender
+from sales.employees;
+
+select 
+	customerid,
+	firstName,
+	lastname,
+	score,
+	case
+		when score is null then 0
+		else score
+	end scoreClean,
+
+	avg(
+	case
+		when score is null then 0
+		else score
+	end) over() avgClean,
+	avg(score) as avg
+from sales.customers;
+
+select 
+	customerid,
+	sum(
+	case 
+		when sales > 30 then 1
+		else 0
+	end
+	) totalOrderHighthan30,
+	count(*) totalOrders
+from sales.orders
+group by customerid;
