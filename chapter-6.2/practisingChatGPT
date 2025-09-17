@@ -7,44 +7,26 @@ Beginner (Straightforward Joins)
 5 - Get all customers and their shipping status (even if some don’t have shipping info).
 
 🔹 Intermediate (Conditions + Aggregates)
-
 Find customers who haven’t placed any orders.
-
 Show customers who placed more than 1 order.
-
 Display customers and their order count, sorted by highest orders first.
-
 Find the average order amount per country.
-
 List all customers from UK who have a Delivered shipment.
 
 🔹 Advanced Joins
-
 Show all orders along with shipping status (order_id, item, status).
-
 Find customers who have orders but no shipping record.
-
 Get the top 2 customers who spent the most.
-
-Find orders placed by customers younger than 25.
-
+Find orders placed by customers younger than 25.\
 List all customers who share the same last name (self join).
 
 🔹 Set Operators Practice
-
 For these, think of results as combining different sets of customers:
-
 List customers who either placed an order or have a shipping record (UNION).
-
-List customers who placed an order and also have a shipping record (INTERSECT).
-
+List customers who placed an order and also have a shipping record (INTERSECT).\
 List customers who placed an order but don’t have a shipping record (EXCEPT / MINUS).
-
 Find countries that have customers but no orders.
-
 Get all unique customer_ids from Orders and Shippings (UNION ALL vs UNION difference).
-
-
 
         ANSWERS
 
