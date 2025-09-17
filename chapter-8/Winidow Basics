@@ -1,0 +1,65 @@
+-- window basics
+select
+	ProductID,
+	sum(sales) as total
+from sales.orders
+group by ProductID;
+
+select
+	OrderID,
+	OrderDate,
+	ProductID,
+	sum(sales) over(partition by productID) totalSales
+from Sales.Orders;
+
+select 
+	OrderID,
+	OrderDate,
+	sum(sales) over() as totalSales
+from sales.Orders;
+
+select 
+	orderid,
+	orderdate,
+	productid,
+	sales,
+	sum(sales) over() totalSales,
+	sum(sales) over(partition by productid) as totalSalesPerOrder
+from sales.Orders;
+
+select 
+	productid,
+	orderstatus,
+	sales,
+	sum(sales) over(partition by productid,orderstatus) as combiningTwo
+from sales.Orders;
+
+select
+	orderid,
+	orderdate,
+	sales,
+	rank() over(order by sales desc) as RankSales
+from sales.orders;
+
+select 
+	orderid,
+	orderdate,
+	orderstatus,
+	sales,
+	sum(sales) over(partition by orderstatus) totalSales
+from sales.Orders;
+
+select 
+	orderid,
+	orderdate,
+	orderstatus,
+	sales,
+	sum(sales) over(partition by orderstatus order by orderdate) totalSales
+from sales.Orders;
+
+select 
+	customerid,
+	sum(sales) as totalSales,
+	rank() over(order by sum(sales) desc) as rankSales 
+from sales.orders
+group by customerid;
