@@ -1,0 +1,10 @@
+-- aggregate functions
+select 
+	CustomerID,
+	count(*) as totalOrders,
+	sum(sales) as totalsales,
+	avg(sales) as averageSales,
+	max(sales) as highest,
+	min(sales) as lowest
+from sales.Orders
+group by CustomerID;
