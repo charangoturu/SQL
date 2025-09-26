@@ -8,3 +8,70 @@ select
 	min(sales) as lowest
 from sales.Orders
 group by CustomerID;
+
+-- count
+select
+	count(*) totalOrders
+from sales.Orders;
+
+select 
+	orderid,
+	orderdate,
+	count(*) over() as total
+from sales.orders;
+
+select 
+	customerid,
+	orderdate,
+	count(*) over(partition by customerid) as totalPerId
+from sales.Orders;
+
+select
+	*,
+	count(*) over() as totalCustomers,
+	count(score) over() as totalscores
+from sales.customers;
+
+select 
+	count(Score) as totla
+from sales.customers;
+
+-- count() is used to identify duplicaates
+select 
+	orderid,
+	count(*) over(partition by orderid) as checkPK
+from sales.orders;
+
+select 
+	OrderID,
+	count(*) over(partition by OrderID) as checkPK
+from Sales.OrdersArchive;
+
+select
+	*
+	from(
+		select 
+			OrderID,
+			count(*) over(partition by OrderID) as checkPK
+		from Sales.OrdersArchive
+		) t
+where checkPK > 1;
+
+-- sum
+select 
+	orderid,
+	orderdate,
+	sales,
+	productid,
+	sum(sales) over() totalSales,
+	sum(sales) over(partition by productid) salesbyproduct
+from sales.orders;
+
+-- comparision use cases
+select 
+	OrderID,
+	ProductID,
+	Sales,
+	sum(Sales) over() totalSales,
+	round(cast(Sales as float) / sum(Sales) over() * 100, 2) as percentageOfTotal
+from Sales.Orders;
